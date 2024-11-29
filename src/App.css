@@ -1,9 +1,9 @@
 :root {
-  --light-orange: #fcdebeff;
-  --sage: #d4d2a5ff;
-  --battleship-gray: #928779ff;
-  --wenge: #5e5768ff;
-  --delft-blue: #3a445dff;
+  --purple: #574B60;
+  --dark-grey: #7D8491;
+  --white: #fafafa;
+  --black: #2d2d39;
+  --grey: #dad9d8;
 }
 
 .page{
@@ -16,7 +16,7 @@
 html, body {
   height:100%;
   margin:0; 
-  background-color: var(--sage);
+  background-color: var(--white);
 }
 
 .product-container {
@@ -35,7 +35,7 @@ html, body {
   text-align: center;
   justify-content: center;
   color: white;
-  background-color: var(--battleship-gray);
+  background-color: var(--purple);
   margin-bottom: 30px;
   border-radius: 20px;
   cursor: pointer;
@@ -45,7 +45,7 @@ html, body {
 h1 {
   text-align: center;
   margin-top: 20px;
-  color: var(--delft-blue);
+  color: var(--black);
 }
 
 .search-add-container {
@@ -61,18 +61,22 @@ h1 {
   width: 300px; /* Adjust width as needed */
   height: 35px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--dark-grey);
   border-radius: 20px;
 }
 
 .add-btn {
   width: 170px;
   height: 50px;
-  background: var(--wenge);
+  background: var(--dark-grey);
   color: #fff;
   border: none;
   border-radius: 20px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.add-btn:hover {
+  background: var(--black);
 }

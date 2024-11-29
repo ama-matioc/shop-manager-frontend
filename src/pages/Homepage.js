@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AxiosHandler from '../handlers/AxiosHandler';
 import '../App.css'
 
 const Homepage = () => {
 
+    const axiosHandler = new AxiosHandler('https://dummyjson.com');
+
     const [products, setProducts] =useState([]);
-    const handleGetRequest = async () => {
-        try {
-            const response = await axios.get('https://dummyjson.com/product');
-            console.log(response.data.products);
-            setProducts(response.data.products);
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     useEffect(() => {
-        handleGetRequest();
+        const fetchProducts = async () => {
+            const data = await axiosHandler.handleGetRequest("/products");
+            console.log(data.products);
+            setProducts(data.products);
+        }
+        fetchProducts();
     }, []);
 
     return (
