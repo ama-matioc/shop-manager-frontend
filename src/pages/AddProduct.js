@@ -34,7 +34,8 @@ const AddProduct = ({ onAddProduct }) => {
                 price: product.price,
                 stock: product.stock,
                 brand: product.brand,
-                image: product.image
+                image: product.image,
+                thumbnail: product.image
             }
         })
     };
