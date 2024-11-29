@@ -13,7 +13,8 @@ const Homepage = () => {
         const fetchProducts = async () => {
             const data = await axiosHandler.handleGetRequest("/get-all-items");
             console.log(data.data);
-            setProducts(data.data);
+            const productArray = Object.values(data.data);
+            setProducts(productArray);
         }
         fetchProducts();
     }, []);
@@ -34,8 +35,8 @@ const Homepage = () => {
             </div>
 
             <div className='product-container'>
-                {   products.map(product => (
-                        <div key={product.id} className='product-card'>
+                {   products.map((product, index) => (
+                        <div key={index} className='product-card'>
                             <img src={product.thumbnail} alt="image"/>
                             <h3>{product.title}</h3>
                             <p>{product.description}</p>
