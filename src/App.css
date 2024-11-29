@@ -45,24 +45,48 @@ h1, h2 {
   cursor: pointer;
 }
 
+.product-card:hover {
+  background-color: var(--black);
+  
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--black);
+}
 .search-add-container {
   display: flex;
   justify-content: center;
+
   align-items: center;
   gap: 20px;
+
+  align-items: center; 
+  gap: 800px; 
+
   margin-top: 20px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
 }
 
 .search-bar {
   padding: 10px;
   width: 300px;
+  width: 300px; 
   height: 35px;
   font-size: 16px;
+  font-weight: bold;
   border: 1px solid var(--dark-grey);
   border-radius: 20px;
 }
 
-.add-btn {
+.btn {
   width: 170px;
   height: 50px;
   background: var(--dark-grey);
@@ -74,14 +98,13 @@ h1, h2 {
   cursor: pointer;
 }
 
-.add-btn:hover {
+.btn:hover {
   background: var(--black);
 }
 
-/* AddProduct Page Styles */
 .add-product-container {
-  background-color: var(--dark-grey); /* Dark background to match homepage purple color */
-  color: var(--white); /* Makes text readable */
+  background-color: var(--dark-grey);
+  color: var(--white);
   padding: 20px;
   border-radius: 20px;
   width: 600px;
@@ -90,22 +113,22 @@ h1, h2 {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Ensures all items inside are centered */
+  align-items: center;
 }
 
 .add-product-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 100%; /* Ensures the form container is full width of parent */
+  width: 100%;
   align-items: center;
 }
 
 .add-product-form input,
 .add-product-form textarea,
 .add-product-form button {
-  width: 90%; /* Make inputs and buttons fill most of the container */
-  max-width: 500px; /* Ensure they don't get too large */
+  width: 90%;
+  max-width: 500px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid var(--grey);
@@ -113,7 +136,6 @@ h1, h2 {
   box-sizing: border-box;
 }
 
-/* Form fields centered */
 .form-group {
   width: 100%;
   max-width: 400px;
@@ -139,9 +161,8 @@ h1, h2 {
   box-sizing: border-box;
 }
 
-/* Purple button for AddProduct page */
 .add-product-container .add-btn {
-  background: var(--purple); /* Purple button specifically for AddProduct page */
+  background: var(--purple);
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -150,16 +171,15 @@ h1, h2 {
   cursor: pointer;
   width: 170px;
   height: 50px;
-  margin-top: 20px; /* Adds spacing between fields and button */
+  margin-top: 20px;
 }
 
 .add-product-container .add-btn:hover {
-  background: var(--black); /* Darker shade on hover */
+  background: var(--black);
 }
 
-/* Purple Back button */
 .add-product-container .back-btn {
-  background: var(--purple); /* Purple back button */
+  background: var(--purple); 
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -168,11 +188,11 @@ h1, h2 {
   cursor: pointer;
   width: 170px;
   height: 50px;
-  margin-top: 20px; /* Adds spacing between buttons */
+  margin-top: 20px;
 }
 
 .add-product-container .back-btn:hover {
-  background: var(--black); /* Darker shade on hover */
+  background: var(--black);
 }
 
 .button-group {
@@ -183,10 +203,28 @@ h1, h2 {
   margin-top: 20px;
 }
 
-/* General Container for consistency */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   background-color: var(--white);
+}
+
+.product-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+.product-buttons button {
+  width: 90px;
+  height: 40px;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }

@@ -5,15 +5,15 @@ import '../App.css'
 
 const Homepage = () => {
 
-    const axiosHandler = new AxiosHandler('https://dummyjson.com');
+    const axiosHandler = new AxiosHandler('http://localhost:5000');
 
     const [products, setProducts] =useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const data = await axiosHandler.handleGetRequest("/products");
-            console.log(data.products);
-            setProducts(data.products);
+            const data = await axiosHandler.handleGetRequest("/get-all-items");
+            console.log(data.data);
+            setProducts(data.data);
         }
         fetchProducts();
     }, []);
@@ -22,13 +22,16 @@ const Homepage = () => {
         <div>
             <h1>Shop Manager</h1>
             <div className="search-add-container">
-    <input 
-        type="text"
-        placeholder="Search for a product"
-        className="search-bar"
-    />
-        <button className="add-btn">Add Product</button>
-    </div>
+                <div className="search-container">
+                    <input 
+                        type="text"
+                        placeholder="Search for a product"
+                        className="search-bar"
+                    />
+                    <button className="btn">Search</button>
+                </div>
+            <button className="btn">Add Product</button>
+            </div>
 
             <div className='product-container'>
                 {   products.map(product => (
@@ -37,7 +40,13 @@ const Homepage = () => {
                             <h3>{product.title}</h3>
                             <p>{product.description}</p>
                             <p>{product.price}</p>
+                            <div className='product-buttons'>  
+                                <button >Edit</button>
+                                <button >Delete</button>
+                                <button >View</button>
+                             </div>
                         </div>
+
                     ))
                 }
             </div>
