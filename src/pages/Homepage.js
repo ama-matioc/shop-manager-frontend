@@ -8,7 +8,9 @@ const Homepage = () => {
 
     const axiosHandler = new AxiosHandler('http://localhost:5000');
 
-    const [products, setProducts] =useState([]);
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]); // Products displayed after filtering
+    const [search, setSearch] = useState();
 
     const navigate = useNavigate();
 
@@ -18,9 +20,27 @@ const Homepage = () => {
             console.log(data.data);
             const productArray = Object.values(data.data);
             setProducts(productArray);
+            setFilteredProducts(productArray); // Initialize filteredProducts with all products
         }
         fetchProducts();
     }, []);
+
+    const handleInput = (event) => {
+        const { name, value } = event.target;
+        if (name === 'search') setSearch(value);
+    };
+
+    const handleSearch = () => {
+        if (search.trim() === '') {
+            setFilteredProducts(products); // Reset to all products if search is empty
+        } else {
+            const filtered = products.filter((product) =>
+                product.title.toLowerCase().includes(search.toLowerCase()) ||
+                product.description.toLowerCase().includes(search.toLowerCase())
+            );
+            setFilteredProducts(filtered);
+        }
+    };
 
     return (
         <div>
@@ -31,29 +51,33 @@ const Homepage = () => {
                         type="text"
                         placeholder="Search for a product"
                         className="search-bar"
+                        name="search"
+                        onChange={handleInput}
                     />
-                    <button className="btn">Search</button>
+                    <button className="btn" onClick={handleSearch}>Search</button>
                 </div>
             <button className="btn" onClick={() => {navigate('/addProduct');}}>Add Product</button>
             </div>
             <button className="btn" onClick={() => {navigate('/login');}}>Login</button>
 
             <div className='product-container'>
-                {   products.map((product, index) => (
-                        <div key={index} className='product-card'>
-                            <img src={product.thumbnail} alt="image"/>
+            {filteredProducts.length > 0 ? (
+                    filteredProducts.map((product, index) => (
+                        <div key={index} className="product-card">
+                            <img src={product.thumbnail} alt="image" />
                             <h3>{product.title}</h3>
                             <p>{product.description}</p>
                             <p>{product.price}</p>
-                            <div className='product-buttons'>  
-                                <button >Edit</button>
-                                <button >Delete</button>
-                                <button >View</button>
-                             </div>
+                            <div className="product-buttons">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                                <button>View</button>
+                            </div>
                         </div>
-
                     ))
-                }
+                ) : (
+                    <p>No products found</p>
+                )}
             </div>
 
         </div>
