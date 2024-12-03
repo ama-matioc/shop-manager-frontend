@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../handlers/FirebaseHandler';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,16 +11,19 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  // Handle form input
   const handleInput = (event) => {
     const { name, value } = event.target;
     if (name === 'email') setEmail(value);
     if (name === 'password') setPassword(value);
   };
 
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -33,35 +35,51 @@ function Login() {
   };
 
   return (
-    <div className='page'>
-      <div className="title">Cineflix</div>
-      <div className='container'>
-        <div className='head'>
-          <div className='text'>Login</div>
-          <div className='underline'></div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className='inputs'>
-            <div className='input'>
-              <input type='email' placeholder='Email' name='email' onChange={handleInput} />
-            </div>
-            {/*errors.email && <span className='error'>{errors.email}</span>*/}
-            <div className='input'>
-              <input type={passwordVisible ? 'text' : 'password'} placeholder='Password' name='password' onChange={handleInput} />
-              <button type="button" className="visibility-btn" onClick={togglePasswordVisibility}>
+    <div className="container">
+      <div className="add-product-container">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit} className="add-product-form">
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleInput}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <div className="password-container">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                name="password"
+                value={password}
+                onChange={handleInput}
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                className="btn show-btn"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? 'Hide' : 'Show'}
               </button>
             </div>
-            {/*errors.password && <span className='error'>{errors.password}</span>*/}
           </div>
-          <p></p>
-          <button type="submit" className='button'>Login</button>
-        </form> 
-        
-        <Link to="/register">
-          <span className="register-link">
-            Don't have an account? Click here to create one!
-          </span>
-        </Link>
+          {error && <p className="error">{error}</p>}
+          <div className="button-group">
+            <button type="submit" className="add-btn">
+              Login
+            </button>
+            <Link to="/register" className="btn back-btn">
+              Register
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );

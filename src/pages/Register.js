@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../handlers/FirebaseHandler'; // Your Firebase setup file
+import { auth } from '../handlers/FirebaseHandler';
 import '../App.css';
 
 function Register() {
@@ -34,66 +34,71 @@ function Register() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirect to Homepage or any desired page
+      navigate('/');
     } catch (error) {
-      setError(error.message); // Display Firebase error message
+      setError(error.message);
     }
   };
 
   return (
-    <div className='page'>
-      <div className="title">Cineflix</div>
-      <div className='container'>
-        <div className='head'>
-          <div className='text'>Register</div>
-          <div className='underline'></div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className='inputs'>
-            <div className='input'>
-              <input
-                type='email'
-                placeholder='Email'
-                name='email'
-                value={email}
-                onChange={handleInput}
-              />
-            </div>
-            <div className='input'>
+    <div className="container">
+      <div className="add-product-container">
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit} className="add-product-form">
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleInput}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <div className="password-container">
               <input
                 type={passwordVisible ? 'text' : 'password'}
-                placeholder='Password'
-                name='password'
+                name="password"
                 value={password}
                 onChange={handleInput}
+                placeholder="Enter your password"
+                required
               />
               <button
                 type="button"
-                className="visibility-btn"
+                className="btn show-btn"
                 onClick={togglePasswordVisibility}
               >
                 {passwordVisible ? 'Hide' : 'Show'}
               </button>
             </div>
-            <div className='input'>
+          </div>
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <div className="password-container">
               <input
                 type={passwordVisible ? 'text' : 'password'}
-                placeholder='Confirm Password'
-                name='confirmPassword'
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={handleInput}
+                placeholder="Confirm your password"
+                required
               />
             </div>
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="submit" className='button'>Register</button>
-        </form> 
-        
-        <Link to="/login">
-          <span className="register-link">
-            Already have an account? Click here to log in!
-          </span>
-        </Link>
+          <div className="button-group">
+            <button type="submit" className="add-btn">
+              Register
+            </button>
+            <Link to="/login" className="btn back-btn">
+              Login
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );
