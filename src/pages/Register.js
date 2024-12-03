@@ -34,7 +34,7 @@ function Register() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/Homepage'); // Redirect to Homepage or any desired page
+      navigate('/'); // Redirect to Homepage or any desired page
     } catch (error) {
       setError(error.message); // Display Firebase error message
     }

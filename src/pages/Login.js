@@ -26,7 +26,7 @@ function Login() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/Homepage');
+      navigate('/');
     } catch (error) {
       setError(error.message);
     }

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AxiosHandler from '../handlers/AxiosHandler';
 import '../App.css'
+import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
 
     const axiosHandler = new AxiosHandler('http://localhost:5000');
 
     const [products, setProducts] =useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -31,8 +34,9 @@ const Homepage = () => {
                     />
                     <button className="btn">Search</button>
                 </div>
-            <button className="btn">Add Product</button>
+            <button className="btn" onClick={() => {navigate('/addProduct');}}>Add Product</button>
             </div>
+            <button className="btn" onClick={() => {navigate('/login');}}>Login</button>
 
             <div className='product-container'>
                 {   products.map((product, index) => (
