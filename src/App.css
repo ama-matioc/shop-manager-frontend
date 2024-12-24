@@ -24,18 +24,18 @@ h1, h2 {
 }
 
 .product-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 25px;
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 40px;
 }
 
 .product-card {
-  width: 420px;
-  height: 550px;
+  height: 400px;
   margin-top: 20px;
+  padding: 20px;
   text-align: center;
   justify-content: center;
   color: white;
@@ -87,13 +87,13 @@ h1 {
 }
 
 .btn {
-  width: 170px;
+  width: 160px;
   height: 50px;
   background: var(--dark-grey);
   color: #fff;
   border: none;
-  border-radius: 20px;
-  font-size: 16px;
+  border-radius: 19px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -208,25 +208,6 @@ h1 {
   margin: 0 auto;
   padding: 20px;
   background-color: var(--white);
-}
-
-.product-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-}
-.product-buttons button {
-  width: 90px;
-  height: 40px;
-  background: var(--white);
-  color: var(--black);
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .error {
@@ -367,4 +348,76 @@ h1 {
 
 .show-btn:hover {
   background: var(--black);
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--purple);
+  color: var(--white);
+}
+
+.navbar-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--white);
+  padding-left: 20px;
+}
+
+.login-btn {
+  padding: 10px 20px;
+  font-size: 22px;
+  font-weight: bold;
+  border: none;
+  color: var(--purple);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 1200px) {
+  .product-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 products per row */
+  }
+}
+
+@media (max-width: 900px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .product-container {
+    grid-template-columns: 1fr; 
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-add-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }
