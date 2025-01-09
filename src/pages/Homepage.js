@@ -44,7 +44,10 @@ const Homepage = () => {
 
     return (
         <div>
-            <h1>Shop Manager</h1>
+            <nav className="navbar">
+                <h1 className="navbar-title">Shop Manager</h1>
+                <button className="login-btn" onClick={() => {navigate('/login');}}>Login</button>
+            </nav>
             <div className="search-add-container">
                 <div className="search-container">
                     <input 
@@ -58,7 +61,6 @@ const Homepage = () => {
                 </div>
             <button className="btn" onClick={() => {navigate('/addProduct');}}>Add Product</button>
             </div>
-            <button className="btn" onClick={() => {navigate('/login');}}>Login</button>
 
             <div className='product-container'>
             {filteredProducts.length > 0 ? (
@@ -66,13 +68,7 @@ const Homepage = () => {
                         <div key={index} className="product-card">
                             <img src={product.thumbnail} alt="image" />
                             <h3>{product.title}</h3>
-                            <p>{product.description}</p>
-                            <p>{product.price}</p>
-                            <div className="product-buttons">
-                                <button>Edit</button>
-                                <button>Delete</button>
-                                <button>View</button>
-                            </div>
+                            <p>${product.price}</p>
                         </div>
                     ))
                 ) : (
