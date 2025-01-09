@@ -3,6 +3,7 @@ import axios from 'axios';
 import AxiosHandler from '../handlers/AxiosHandler';
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
+import ViewItemModal from '../components/ViewItemModal';
 
 const Homepage = () => {
 
@@ -11,6 +12,19 @@ const Homepage = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]); // Products displayed after filtering
     const [search, setSearch] = useState();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const openModal = (item) => {
+        setSelectedItem(item);
+        setIsModalOpen(true);
+    };
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+    };
 
     const navigate = useNavigate();
 
@@ -42,6 +56,22 @@ const Homepage = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await axiosHandler.handlePostRequest(`/delete-item`, {
+                collection: "inventory",
+                item_id: id,
+            });
+            const updatedProducts = products.filter((product) => product.id !== id);
+            setProducts(updatedProducts);
+            setFilteredProducts(updatedProducts);
+            alert("Product deleted successfully!");
+        } catch (error) {
+            console.error("Error deleting product:", error);
+            alert("Failed to delete the product.");
+        }
+    };
+
     return (
         <div>
             <h1>Shop Manager</h1>
@@ -70,8 +100,8 @@ const Homepage = () => {
                             <p>{product.price}</p>
                             <div className="product-buttons">
                                 <button>Edit</button>
-                                <button>Delete</button>
-                                <button>View</button>
+                                <button onClick={() => handleDelete(product.id)}>Delete</button>
+                                <button onClick={() => {openModal(); setSelectedItem(product);}}>View</button>
                             </div>
                         </div>
                     ))
@@ -79,6 +109,15 @@ const Homepage = () => {
                     <p>No products found</p>
                 )}
             </div>
+
+            <ViewItemModal isOpen={isModalOpen} onClose={closeModal}>
+                {selectedItem && (
+                <div>
+                    <h2>{selectedItem.name}</h2>
+                    <p>{selectedItem.description}</p>
+                </div>
+                )}
+            </ViewItemModal>
 
         </div>
     );
