@@ -10,7 +10,7 @@ const Homepage = () => {
     const axiosHandler = new AxiosHandler('http://localhost:5000');
 
     const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([]); // Products displayed after filtering
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [search, setSearch] = useState();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,9 +32,9 @@ const Homepage = () => {
         const fetchProducts = async () => {
             const data = await axiosHandler.handleGetRequest("/get-all-items");
             console.log(data.data);
-            const productArray = Object.values(data.data);
+            const productArray = Object.values(data.data).filter(product => product !== null && product !== undefined);
             setProducts(productArray);
-            setFilteredProducts(productArray); // Initialize filteredProducts with all products
+            setFilteredProducts(productArray);
         }
         fetchProducts();
     }, []);
@@ -46,7 +46,7 @@ const Homepage = () => {
 
     const handleSearch = () => {
         if (search.trim() === '') {
-            setFilteredProducts(products); // Reset to all products if search is empty
+            setFilteredProducts(products);
         } else {
             const filtered = products.filter((product) =>
                 product.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -60,8 +60,9 @@ const Homepage = () => {
         try {
             await axiosHandler.handlePostRequest(`/delete-item`, {
                 collection: "inventory",
-                item_id: id,
+                item_id: id - 1,
             });
+            console.log(id);
             const updatedProducts = products.filter((product) => product.id !== id);
             setProducts(updatedProducts);
             setFilteredProducts(updatedProducts);
@@ -71,6 +72,10 @@ const Homepage = () => {
             alert("Failed to delete the product.");
         }
     };
+
+    const handleEdit = async (id) => {
+        navigate(`/edit-product/` + id);
+    }
 
     return (
         <div>
@@ -95,16 +100,12 @@ const Homepage = () => {
             <div className='product-container'>
             {filteredProducts.length > 0 ? (
                     filteredProducts.map((product, index) => (
-                        <div key={index} className="product-card">
+                        <div key={index} className="product-card" onClick={() => {
+                            openModal(product);
+                        }}>
                             <img src={product.thumbnail} alt="image" />
                             <h3>{product.title}</h3>
-                            <p>{product.description}</p>
-                            <p>{product.price}</p>
-                            <div className="product-buttons">
-                                <button>Edit</button>
-                                <button onClick={() => handleDelete(product.id)}>Delete</button>
-                                <button onClick={() => {openModal(); setSelectedItem(product);}}>View</button>
-                            </div>
+                            <p>{"$" + product.price}</p>
                         </div>
                     ))
                 ) : (
@@ -115,8 +116,17 @@ const Homepage = () => {
             <ViewItemModal isOpen={isModalOpen} onClose={closeModal}>
                 {selectedItem && (
                 <div>
-                    <h2>{selectedItem.name}</h2>
+                    <img src={selectedItem.thumbnail} alt="image" />
+                    <h2>{selectedItem.title}</h2>
+                    <p>{"$" + selectedItem.price}</p>
                     <p>{selectedItem.description}</p>
+                    <div className="product-buttons">
+                        <button onClick={() => handleEdit(selectedItem.id)} className="show-btn">Edit</button>
+                        <button onClick={() => {
+                            handleDelete(selectedItem.id);
+                            closeModal();
+                            }} className="show-btn">Delete</button>
+                    </div>
                 </div>
                 )}
             </ViewItemModal>

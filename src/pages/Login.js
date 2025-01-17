@@ -11,19 +11,16 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  // Handle form input
   const handleInput = (event) => {
     const { name, value } = event.target;
     if (name === 'email') setEmail(value);
     if (name === 'password') setPassword(value);
   };
 
-  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
